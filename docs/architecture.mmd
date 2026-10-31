@@ -1,0 +1,13 @@
+flowchart LR
+    U[User] --> UI[Streamlit Frontend]
+    UI -->|HTTP / JSON| API[FastAPI Backend]
+    API --> UP[CSV Upload and Validation]
+    UP --> STORE[In-memory Dataset Store]
+    API --> PLAN[Constrained Analysis Planner]
+    PLAN -->|Optional, 20s timeout| GEM[Google Gemini]
+    PLAN -->|Fallback| RULES[Rule-based Planner]
+    STORE --> ENGINE[Pandas Analysis Engine]
+    GEM --> ENGINE
+    RULES --> ENGINE
+    ENGINE --> OUT[Answer, Table, Chart, SQL and Pandas Snippets]
+    OUT --> UI
